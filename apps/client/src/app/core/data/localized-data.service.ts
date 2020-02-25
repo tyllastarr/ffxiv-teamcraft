@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { I18nName } from '../../model/common/i18n-name';
-import * as weathers from './sources/weathers.json';
 import * as freeCompanyActions from './sources/free-company-actions.json';
 import * as jobNames from './sources/job-name.json';
 import * as jobAbbrs from './sources/job-abbr.json';
@@ -9,11 +8,13 @@ import { koActions } from './sources/ko-actions';
 import { mapIds } from './sources/map-ids';
 import { LazyDataService } from './lazy-data.service';
 import { Fate } from '../../pages/db/model/fate/fate';
+import { Npc } from '../../pages/db/model/npc/npc';
 import { Quest } from '../../pages/db/model/quest/quest';
 import { tripleTriadRules } from './sources/triple-triad-rules';
 import { zhActions } from './sources/zh-actions';
 import { ExtendedLanguageKeys } from './extended-language-keys';
 import { LazyData } from './lazy-data';
+import { Trait } from '../../pages/db/model/trait/trait';
 
 @Injectable()
 export class LocalizedDataService {
@@ -34,6 +35,10 @@ export class LocalizedDataService {
 
   public getInstanceName(id: number): any {
     return this.getRowWithExtendedLanguage('instances', id);
+  }
+
+  public getAchievementName(id: number): I18nName {
+    return this.getRowWithExtendedLanguage('achievements', id);
   }
 
   public getMapName(id: number): any {
@@ -60,8 +65,8 @@ export class LocalizedDataService {
     return row;
   }
 
-  public getNpc(id: number): I18nName {
-    return this.getRowWithExtendedLanguage('npcs', id);
+  public getNpc(id: number): Npc {
+    return this.getRowWithExtendedLanguage<Npc>('npcs', id);
   }
 
   public getLeve(id: number): I18nName {
@@ -106,8 +111,13 @@ export class LocalizedDataService {
     return row;
   }
 
-  public getTrait(id: number): any {
-    return this.getRowWithExtendedLanguage('traits', id);
+  public getTrait(id: number): Trait {
+    const row = this.getRowWithExtendedLanguage<Trait>('traits', id);
+    if (row && row.description) {
+      this.tryFillExtendedLanguage(row.description, id, { zhKey: 'zhTraitDescriptions', koKey: 'koTraitDescriptions' })
+    }
+
+    return row;
   }
 
   public getRaceName(id: number): any {
@@ -122,7 +132,7 @@ export class LocalizedDataService {
       ja: lazyRow.Name_ja,
       fr: lazyRow.Name_fr
     };
-    this.tryFillExtendedLanguage(row, id, { zhKey: 'tribes', koKey: 'tribes' });
+    this.tryFillExtendedLanguage(row, id, { zhKey: 'zhTribes', koKey: 'koTribes' });
     return row;
   }
 
@@ -141,20 +151,17 @@ export class LocalizedDataService {
       ja: lazyRow.Name_ja,
       fr: lazyRow.Name_fr
     };
-    this.tryFillExtendedLanguage(row, id, { zhKey: 'baseParams', koKey: 'baseParams' });
+    this.tryFillExtendedLanguage(row, id, { zhKey: 'zhBaseParams', koKey: 'koBaseParams' });
 
     return row;
   }
 
   public getWeather(id: number): I18nName {
-    const row = this.getRow(weathers, id);
-    this.tryFillExtendedLanguage(row, id, { zhKey: 'zhWeathers', koKey: 'koWeathers' });
-
-    return row;
+    return this.getRowWithExtendedLanguage('weathers', id);
   }
 
   public getWeatherId(name: string): number {
-    return this.getIndexByName(weathers, name, 'en');
+    return this.getIndexByName(this.lazyData.data.weathers, name, 'en');
   }
 
   public getAreaIdByENName(name: string): number {
@@ -256,8 +263,8 @@ export class LocalizedDataService {
     return array[id];
   }
 
-  private getRowWithExtendedLanguage(key: keyof LazyData, id: number | string): I18nName {
-    const row = this.getRow<I18nName>(this.lazyData.data[key], id);
+  private getRowWithExtendedLanguage<T extends I18nName = I18nName>(key: keyof LazyData, id: number | string): T {
+    const row = this.getRow<T>(this.lazyData.data[key], id);
     if (row === undefined) {
       return undefined;
     }
@@ -295,6 +302,20 @@ export class LocalizedDataService {
       const koRow = this.getRow(this.lazyData.data[koKey], id);
       row.ko = koRow !== undefined ? koRow.ko : row.en;
     }
+  }
+
+  public xivapiToI18n(value: any, key: any, fieldName = 'Name'): I18nName {
+    const row = {
+      en: value[`${fieldName}_en`],
+      fr: value[`${fieldName}_fr`],
+      de: value[`${fieldName}_de`],
+      ja: value[`${fieldName}_ja`],
+    };
+
+    if (key !== null) {
+      this.tryFillExtendedLanguage(row, value.ID, this.guessExtendedLanguageKeys(key));
+    }
+    return row;
   }
 
   /**

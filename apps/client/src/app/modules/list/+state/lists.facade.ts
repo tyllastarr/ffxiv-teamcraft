@@ -21,7 +21,8 @@ import {
   UnPinList,
   UpdateItem,
   UpdateList,
-  UpdateListIndex
+  UpdateListIndex,
+  LoadArchivedLists, PureUpdateList
 } from './lists.actions';
 import { List } from '../model/list';
 import { NameQuestionPopupComponent } from '../../name-question-popup/name-question-popup/name-question-popup.component';
@@ -37,6 +38,7 @@ import { Team } from '../../../model/team/team';
 import { SettingsService } from '../../settings/settings.service';
 import { environment } from '../../../../environments/environment';
 import { InventoryFacade } from '../../inventory/+state/inventory.facade';
+import { NavigationEnd, Router } from '@angular/router';
 
 declare const gtag: Function;
 
@@ -104,8 +106,8 @@ export class ListsFacade {
     shareReplay(1)
   );
 
-  public listsWithWriteAccess$ = combineLatest([this.sharedLists$, this.authFacade.user$, this.authFacade.userId$, this.authFacade.fcId$]).pipe(
-    map(([compacts, user, userId, fcId]) => {
+  public listsWithWriteAccess$ = combineLatest([this.allListDetails$, this.authFacade.user$, this.authFacade.userId$, this.authFacade.fcId$, this.teamsFacade.myTeams$]).pipe(
+    map(([compacts, user, userId, fcId, teams]) => {
       if (user !== null) {
         const idEntry = user.lodestoneIds.find(l => l.id === user.defaultLodestoneId);
         const verified = idEntry && idEntry.verified;
@@ -115,8 +117,12 @@ export class ListsFacade {
       }
       return this.sortLists(
         compacts.filter(c => {
+          const hasFcPermission = Math.max(c.getPermissionLevel(userId), c.getPermissionLevel(fcId)) >= PermissionLevel.WRITE;
+          const hasTeamPermission = teams.map(team => `team:${team.$key}`).some(key => {
+            return c.getPermissionLevel(key) >= PermissionLevel.WRITE;
+          });
           return !c.notFound
-            && Math.max(c.getPermissionLevel(userId), c.getPermissionLevel(fcId)) >= PermissionLevel.WRITE
+            && (hasFcPermission || hasTeamPermission)
             && c.authorId !== userId;
         })
       );
@@ -165,8 +171,22 @@ export class ListsFacade {
 
   completionNotificationEnabled$ = this.store.select(listsQuery.getCompletionNotificationEnabled);
 
+  private overlay: boolean;
+
   constructor(private store: Store<{ lists: ListsState }>, private dialog: NzModalService, private translate: TranslateService, private authFacade: AuthFacade,
-              private teamsFacade: TeamsFacade, private settings: SettingsService, private userInventoryService: InventoryFacade) {
+              private teamsFacade: TeamsFacade, private settings: SettingsService, private userInventoryService: InventoryFacade,
+              private router: Router) {
+    router.events
+      .pipe(
+        distinctUntilChanged((previous: any, current: any) => {
+          if (current instanceof NavigationEnd) {
+            return previous.url === current.url;
+          }
+          return true;
+        })
+      ).subscribe((event: any) => {
+      this.overlay = event.url.indexOf('?overlay') > -1;
+    });
   }
 
   getTeamLists(team: Team): Observable<List[]> {
@@ -185,6 +205,10 @@ export class ListsFacade {
     this.newList().subscribe(list => {
       this.addList(list);
     });
+  }
+
+  loadArchivedLists(): void {
+    this.store.dispatch(new LoadArchivedLists());
   }
 
   newList(): Observable<List> {
@@ -245,6 +269,10 @@ export class ListsFacade {
     this.store.dispatch(new UpdateList(list, updateCompact, force));
   }
 
+  pureUpdateList($key: string, data: Partial<List>): void {
+    this.store.dispatch(new PureUpdateList($key, data));
+  }
+
   loadTeamLists(teamId: string): void {
     this.store.dispatch(new LoadTeamLists(teamId));
   }
@@ -271,7 +299,7 @@ export class ListsFacade {
 
   toggleAutocomplete(newValue: boolean): void {
     this.store.dispatch(new ToggleAutocompletion(newValue));
-    if (newValue) {
+    if (newValue && !this.overlay) {
       this.userInventoryService.inventory$.pipe(
         first(),
         filter((inventory) => {

@@ -32,7 +32,7 @@ let todo = [
   'gatheringLog',
   'map',
   'craftingLog',
-  'weather',
+  'weather-rate',
   'fishingLog',
   'itemIcons',
   'spearFishingLog',
@@ -71,12 +71,19 @@ const onlyIndex = process.argv.indexOf('--only');
 if (onlyIndex > -1) {
   todo = [...process.argv.slice(onlyIndex + 1)];
 }
+let cache = [];
+
+try {
+  cache = require(path.join(__dirname, 'progress.json'));
+} catch (e) {
+  // File not found, not an issue
+}
 
 const everything = process.argv.indexOf('--everything') > -1;
 
 function hasTodo(operation) {
-  let matches = todo.indexOf(operation) > -1;
-  if (everything) {
+  let matches = todo.indexOf(operation) > -1 && cache.indexOf(operation) === -1;
+  if (everything && cache.indexOf(operation) === -1) {
     matches = true;
   }
   if (matches) {
@@ -85,9 +92,34 @@ function hasTodo(operation) {
   return matches;
 }
 
+function done(operation) {
+  if (process.argv.indexOf('--no-progress') > -1) {
+    return;
+  }
+  cache.push(operation);
+  fs.writeFileSync(path.join(__dirname, 'progress.json'), JSON.stringify(cache));
+}
+
 fs.existsSync('output') || fs.mkdirSync('output');
 
 let emptyBnpcNames = 0;
+
+if (hasTodo('missingNodes')) {
+  const nodes = require(path.join(__dirname, '../../apps/client/src/assets/data/node-positions.json'));
+  const itemNames = require(path.join(__dirname, '../../apps/client/src/assets/data/items.json'));
+  let count = 0;
+  Object.values(nodes).forEach((node) => {
+    if (node.items.filter(i => i < 100000).length > 0 && node.x === undefined) {
+      console.log(` - [ ] Items: ${node.items.map(item => itemNames[item.toString()].en).join(', ')}`);
+      console.log(`| Level: ${node.level}`);
+      console.log(`| Limited: ${node.limited}`);
+      count++;
+    }
+  });
+  console.log(`
+
+  **Total**: ${count}`);
+}
 
 if (hasTodo('mappy')) {
   // MapData extraction
@@ -225,6 +257,7 @@ if (hasTodo('mappy')) {
           console.log('monsters written', emptyBnpcNames);
           persistToJsonAsset('npcs', npcs);
           console.log('npcs written');
+          done('mappy');
         });
     });
 }
@@ -342,6 +375,7 @@ if (hasTodo('map')) {
     });
   }, null, () => {
     persistToTypescript('map-ids', 'mapIds', mapIds);
+    done('map');
   });
 }
 
@@ -454,6 +488,7 @@ if (hasTodo('craftingLog')) {
     });
     persistToJsonAsset('crafting-log', craftingLog);
     persistToJsonAsset('crafting-log-pages', craftingLogPages);
+    done('craftingLog');
   });
 }
 
@@ -494,6 +529,7 @@ if (hasTodo('gatheringLog')) {
         });
     });
     persistToJsonAsset('gathering-log-pages', gatheringLogPages);
+    done('gatheringLog');
   });
 
 }
@@ -538,7 +574,7 @@ if (hasTodo('fishingLog')) {
     const spots = [];
     const fishes = [];
     completeFetch
-      .filter(spot => spot.Item0 !== null && spot.TerritoryType !== null)
+      .filter(spot => spot.Item0 !== null && spot.TerritoryType !== null && spot.PlaceName !== null)
       .forEach(spot => {
         const c = spot.TerritoryType.Map.SizeFactor / 100.0;
         spots.push({
@@ -588,6 +624,7 @@ if (hasTodo('fishingLog')) {
     persistToJsonAsset('fishing-log', fishingLog);
     persistToJsonAsset('fishing-spots', spots);
     persistToJsonAsset('fishes', fishes);
+    done('fishingLog');
   });
 
 }
@@ -671,12 +708,13 @@ if (hasTodo('spearFishingLog')) {
             spearFishingNodes.push(entry);
           });
         persistToTypescript('spear-fishing-nodes', 'spearFishingNodes', spearFishingNodes);
+        done('spearFishingLog');
       });
     });
 }
 
 
-if (hasTodo('weather')) {
+if (hasTodo('weather-rate')) {
 // Weather index extraction
   const weatherIndexes = [];
 
@@ -719,6 +757,27 @@ if (hasTodo('weather')) {
       weatherIndexData[weatherIndex.ID] = entry;
     });
     persistToTypescript('weather-index', 'weatherIndex', weatherIndexData);
+    done('weather-rate');
+  });
+}
+
+
+if (hasTodo('weathers')) {
+  const weathers = {};
+  getAllPages('https://xivapi.com/Weather?columns=ID,Name_*').subscribe(page => {
+    page.Results.forEach(weather => {
+      weathers[weather.ID] = {
+        name: {
+          en: weather.Name_en,
+          ja: weather.Name_ja,
+          de: weather.Name_de,
+          fr: weather.Name_fr
+        }
+      };
+    });
+  }, null, () => {
+    persistToJsonAsset('weathers', weathers);
+    done('weathers');
   });
 }
 
@@ -730,6 +789,7 @@ if (hasTodo('aetherstream')) {
     });
   }, null, () => {
     persistToTypescript('aetherstream', 'aetherstream', aetherstream);
+    done('aetherstream');
   });
 }
 
@@ -753,6 +813,7 @@ if (hasTodo('maps')) {
     });
   }, null, () => {
     persistToJsonAsset('maps', maps);
+    done('maps');
   });
 }
 
@@ -771,6 +832,7 @@ if (hasTodo('tripleTriadRules')) {
     });
   }, null, () => {
     persistToTypescript('triple-triad-rules', 'tripleTriadRules', rules);
+    done('tripleTriadRules');
   });
 }
 
@@ -809,6 +871,7 @@ if (hasTodo('quests')) {
       });
     persistToJsonAsset('quests', quests);
     persistToTypescript('quests-chain-lengths', 'questChainLengths', questChainLengths);
+    done('quests');
   });
 }
 
@@ -864,6 +927,7 @@ if (hasTodo('fates')) {
       delete fates[key].location;
     });
     persistToJsonAsset('fates', fates);
+    done('fates');
   });
 }
 
@@ -890,6 +954,7 @@ if (hasTodo('instances')) {
     });
   }, null, () => {
     persistToJsonAsset('instances', instances);
+    done('instances');
   });
 }
 
@@ -906,6 +971,7 @@ if (hasTodo('shops')) {
     });
   }, null, () => {
     persistToJsonAsset('shops', shops);
+    done('shops');
   });
 }
 
@@ -929,6 +995,7 @@ if (hasTodo('leves')) {
     });
   }, null, () => {
     persistToJsonAsset('leves', leves);
+    done('leves');
   });
 }
 
@@ -945,6 +1012,7 @@ if (hasTodo('jobCategories')) {
     });
   }, null, () => {
     persistToTypescript('job-categories', 'jobCategories', jobCategories);
+    done('jobCategories');
   });
 }
 
@@ -961,6 +1029,7 @@ if (hasTodo('mobs')) {
     });
   }, null, () => {
     persistToJsonAsset('mobs', mobs);
+    done('mobs');
   });
 }
 
@@ -977,6 +1046,7 @@ if (hasTodo('places')) {
     });
   }, null, () => {
     persistToJsonAsset('places', places);
+    done('places');
   });
 }
 
@@ -1029,6 +1099,7 @@ if (hasTodo('hunts')) {
     )
     .subscribe(hunts => {
       persistToJsonAsset('hunts', hunts);
+      done('hunts');
     });
 }
 
@@ -1059,6 +1130,7 @@ if (hasTodo('gatheringBonuses')) {
     });
   }, null, () => {
     persistToJsonAsset('gathering-bonuses', bonuses);
+    done('gatheringBonuses');
   });
 }
 
@@ -1073,6 +1145,7 @@ if (hasTodo('cdGroups')) {
     });
   }, null, () => {
     persistToJsonAsset('action-cd-groups', groups);
+    done('cdGroups');
   });
 }
 
@@ -1086,6 +1159,7 @@ if (hasTodo('combos')) {
     });
   }, null, () => {
     persistToTypescript('action-combos', 'actionCombos', combos);
+    done('combos');
   });
 }
 
@@ -1103,6 +1177,7 @@ if (hasTodo('statuses')) {
     });
   }, null, () => {
     persistToJsonAsset('statuses', statuses);
+    done('statuses');
   });
 }
 
@@ -1126,6 +1201,7 @@ if (hasTodo('traits')) {
     });
   }, null, () => {
     persistToJsonAsset('traits', traits);
+    done('traits');
   });
 }
 
@@ -1165,7 +1241,8 @@ if (hasTodo('items')) {
   const itemStats = {};
   const itemMeldingData = {};
   const equipSlotCategoryId = {};
-  getAllPages('https://xivapi.com/Item?columns=ID,Name_*,CanBeHq,Rarity,GameContentLinks,Icon,LevelItem,StackSize,EquipSlotCategoryTargetID,Stats,MateriaSlotCount,BaseParamModifier,IsAdvancedMeldingPermitted')
+  const itemPatch = {};
+  getAllPages('https://xivapi.com/Item?columns=Patch,ID,Name_*,CanBeHq,Rarity,GameContentLinks,Icon,LevelItem,StackSize,EquipSlotCategoryTargetID,Stats,MateriaSlotCount,BaseParamModifier,IsAdvancedMeldingPermitted')
     .subscribe(page => {
       page.Results.forEach(item => {
         itemIcons[item.ID] = item.Icon;
@@ -1179,6 +1256,7 @@ if (hasTodo('items')) {
         ilvls[item.ID] = item.LevelItem;
         stackSizes[item.ID] = item.StackSize;
         itemSlots[item.ID] = item.EquipSlotCategoryTargetID;
+        itemPatch[item.ID] = item.Patch;
         if (item.Stats) {
           itemStats[item.ID] = Object.values(item.Stats);
         }
@@ -1203,6 +1281,8 @@ if (hasTodo('items')) {
       persistToJsonAsset('item-stats', itemStats);
       persistToJsonAsset('item-melding-data', itemMeldingData);
       persistToJsonAsset('item-equip-slot-category', equipSlotCategoryId);
+      persistToJsonAsset('item-patch', itemPatch);
+      done('items');
     });
 }
 
@@ -1222,6 +1302,7 @@ if (hasTodo('aetherytes')) {
     });
   }, null, () => {
     persistToTypescript('aetheryte-names', 'aetheryteNames', names);
+    done('aetherytes');
   });
 }
 
@@ -1241,39 +1322,62 @@ if (hasTodo('achievements')) {
   }, null, () => {
     persistToJsonAsset('achievements', achievements);
     persistToJsonAsset('achievement-icons', icons);
+    done('achievements');
   });
 }
 
 if (hasTodo('recipes')) {
+  // We're maintaining two formats, that's bad but migrating all the usages of the current recipe model isn't possible, sadly.
   const recipes = [];
-  getAllPages('https://xivapi.com/Recipe?columns=ID,ClassJob.ID,CanQuickSynth,RecipeLevelTable,AmountResult,ItemResultTargetID,ItemIngredient0TargetID,ItemIngredient1TargetID,ItemIngredient2TargetID,ItemIngredient3TargetID,ItemIngredient4TargetID,ItemIngredient5TargetID,ItemIngredient6TargetID,ItemIngredient7TargetID,ItemIngredient8TargetID,ItemIngredient9TargetID,AmountIngredient0,AmountIngredient1,AmountIngredient2,AmountIngredient3,AmountIngredient4,AmountIngredient5,AmountIngredient6,AmountIngredient7,AmountIngredient8,AmountIngredient9').subscribe(page => {
+  getAllPages('https://xivapi.com/Recipe?columns=ID,ClassJob.ID,MaterialQualityFactor,DurabilityFactor,QualityFactor,DifficultyFactor,RequiredControl,RequiredCraftsmanship,CanQuickSynth,RecipeLevelTable,AmountResult,ItemResultTargetID,ItemIngredient0,ItemIngredient1,ItemIngredient2,ItemIngredient3,ItemIngredient4,ItemIngredient5,ItemIngredient6,ItemIngredient7,ItemIngredient8,ItemIngredient9,AmountIngredient0,AmountIngredient1,AmountIngredient2,AmountIngredient3,AmountIngredient4,AmountIngredient5,AmountIngredient6,AmountIngredient7,AmountIngredient8,AmountIngredient9').subscribe(page => {
     page.Results.forEach(recipe => {
       if (recipe.RecipeLevelTable === null) {
         return;
       }
+      const maxQuality = Math.floor(recipe.RecipeLevelTable.Quality * recipe.QualityFactor / 100);
+      const ingredients = Object.keys(recipe)
+        .filter(k => /ItemIngredient\d/.test(k))
+        .sort((a, b) => a < b ? -1 : 1)
+        .filter(key => recipe[key] && recipe[key].ID > 19)
+        .map((key, index) => {
+          return {
+            id: recipe[key].ID,
+            amount: +recipe[`AmountIngredient${index}`],
+            ilvl: +recipe[key].LevelItem
+          };
+        });
+      const totalContrib = maxQuality * recipe.MaterialQualityFactor / 100;
+      const totalIlvl = ingredients.reduce((acc, cur) => acc + cur.ilvl * cur.amount, 0);
       recipes.push({
         id: recipe.ID,
         job: recipe.ClassJob.ID,
-        level: recipe.RecipeLevelTable.ClassJobLevel,
+        lvl: recipe.RecipeLevelTable.ClassJobLevel,
         yields: recipe.AmountResult,
         result: recipe.ItemResultTargetID,
         stars: recipe.RecipeLevelTable.Stars,
         qs: recipe.CanQuickSynth === 1,
+        hq: recipe.CanHq === 1,
+        durability: Math.floor(recipe.RecipeLevelTable.Durability * recipe.DurabilityFactor / 100),
+        quality: maxQuality,
+        progress: Math.floor(recipe.RecipeLevelTable.Difficulty * recipe.DifficultyFactor / 100),
+        suggestedControl: recipe.RecipeLevelTable.SuggestedControl,
+        suggestedCraftsmanship: recipe.RecipeLevelTable.SuggestedCraftsmanship,
+        controlReq: recipe.RequiredControl,
+        craftsmanshipReq: recipe.RequiredCraftsmanship,
         rlvl: recipe.RecipeLevelTable.ID,
-        ingredients: Object.keys(recipe)
-          .filter(k => /ItemIngredient\dTargetID/.test(k))
-          .sort((a, b) => a < b ? -1 : 1)
-          .filter(key => recipe[key] > 19)
-          .map((key, index) => {
+        ingredients: ingredients
+          .map(ingredient => {
             return {
-              id: recipe[key],
-              amount: +recipe[`AmountIngredient${index}`]
+              id: ingredient.id,
+              amount: ingredient.amount,
+              quality: (ingredient.ilvl / totalIlvl) * totalContrib
             };
           })
       });
     });
   }, null, () => {
     persistToJsonAsset('recipes', recipes);
+    done('recipes');
   });
 }
 
@@ -1311,6 +1415,7 @@ if (hasTodo('actions')) {
     persistToJsonAsset('action-icons', icons);
     persistToJsonAsset('actions', actions);
     persistToJsonAsset('craft-actions', craftActions);
+    done('actions');
   });
 }
 
@@ -1361,6 +1466,7 @@ if (hasTodo('reductions')) {
         }
       });
       persistToTypescript('reductions', 'reductions', reductions);
+      done('reductions');
     });
 }
 
@@ -1397,6 +1503,7 @@ if (hasTodo('monsterDrops')) {
         }
       });
       persistToTypescript('monster-drops', 'monsterDrops', drops);
+      done('monsterDrops');
     });
 }
 
@@ -1415,6 +1522,7 @@ if (hasTodo('stats')) {
     });
   }, null, () => {
     persistToTypescript('stats', 'stats', stats);
+    done('stats');
   });
 }
 
@@ -1445,6 +1553,7 @@ if (hasTodo('patchContent')) {
     });
   }, null, () => {
     persistToJsonAsset('patch-content', patchContent);
+    done('patchContent');
   });
 }
 
@@ -1463,6 +1572,7 @@ if (hasTodo('voyages')) {
     });
   }, null, () => {
     persistToTypescript('airship-voyages', 'airshipVoyages', airshipVoyages);
+    done('voyages');
   });
 
   getAllPages('https://xivapi.com/SubmarineExploration?columns=ID,Destination_*').subscribe(page => {
@@ -1477,6 +1587,7 @@ if (hasTodo('voyages')) {
     });
   }, null, () => {
     persistToTypescript('submarine-voyages', 'submarineVoyages', submarineVoyages);
+    done('voyages');
   });
 }
 
@@ -1488,6 +1599,7 @@ if (hasTodo('worlds')) {
     });
   }, null, () => {
     persistToTypescript('worlds', 'worlds', worlds);
+    done('worlds');
   });
 }
 
@@ -1499,34 +1611,36 @@ if (hasTodo('territories')) {
     });
   }, null, () => {
     persistToTypescript('territories', 'territories', territories);
+    done('territories');
   });
 }
 
-if (hasTodo('suggestedValues')) {
-  const suggested = {};
-  getAllPages('https://xivapi.com/RecipeLevelTable?columns=ID,SuggestedControl,SuggestedCraftsmanship').subscribe(page => {
-    page.Results.forEach(entry => {
-      suggested[entry.ID] = {
-        craftsmanship: entry.SuggestedCraftsmanship,
-        control: entry.SuggestedControl
-      };
-    });
-  }, null, () => {
-    persistToTypescript('suggested', 'suggested', suggested);
-  });
-}
+// if (hasTodo('suggestedValues')) {
+//   const suggested = {};
+//   getAllPages('https://xivapi.com/RecipeLevelTable?columns=ID,SuggestedControl,SuggestedCraftsmanship').subscribe(page => {
+//     page.Results.forEach(entry => {
+//       suggested[entry.ID] = {
+//         craftsmanship: entry.SuggestedCraftsmanship,
+//         control: entry.SuggestedControl
+//       };
+//     });
+//   }, null, () => {
+//     persistToTypescript('suggested', 'suggested', suggested);
+//   });
+// }
 
 if (hasTodo('HWDData')) {
   const supplies = {};
   getAllEntries('https://xivapi.com/HWDCrafterSupply').subscribe(completeFetch => {
     completeFetch.forEach(supply => {
       for (let i = 0; i < 5; i++) {
+        const baseReward = supply[`BaseCollectableReward${i}`];
         supplies[supply[`ItemTradeIn${i}TargetID`]] = {
           level: supply[`Level${i}`],
           base: {
             rating: supply[`BaseCollectableRating${i}`],
-            exp: supply[`BaseCollectableReward${i}`].ExpReward,
-            scrip: supply[`BaseCollectableReward${i}`].ScriptRewardAmount
+            exp: baseReward ? baseReward.ExpReward : 0,
+            scrip: baseReward ? baseReward.ScriptRewardAmount : 0
           },
           mid: {
             rating: supply[`MidBaseCollectableRating${i}`],
@@ -1542,6 +1656,7 @@ if (hasTodo('HWDData')) {
       }
     });
     persistToTypescript('hwd-supplies', 'hwdSupplies', supplies);
+    done('HWDData');
   });
 }
 
@@ -1553,6 +1668,7 @@ if (hasTodo('actionTimeline')) {
     });
   }, null, () => {
     persistToJsonAsset('action-timeline', actionTimeline);
+    done('actionTimeline');
   });
 }
 
@@ -1604,6 +1720,7 @@ if (hasTodo('materias')) {
       });
   }, null, () => {
     persistToJsonAsset('materias', materias);
+    done('materias');
   });
 }
 
@@ -1652,6 +1769,7 @@ if (hasTodo('baseParam')) {
     });
   }, null, () => {
     persistToJsonAsset('base-params', baseParams);
+    done('baseParam');
   });
 }
 
@@ -1741,6 +1859,7 @@ if (hasTodo('itemLevel')) {
     });
   }, null, () => {
     persistToJsonAsset('item-level', itemLevel);
+    done('itemLevel');
   });
 }
 
@@ -1765,6 +1884,7 @@ if (hasTodo('classJobModifiers')) {
     });
   }, null, () => {
     persistToJsonAsset('class-jobs-modifiers', ClassJobs);
+    done('classJobModifiers');
   });
 }
 
@@ -1776,6 +1896,7 @@ if (hasTodo('equipSlotCategories')) {
       equipSlotCategories[entry.ID] = entry;
     });
     persistToJsonAsset('equip-slot-categories', equipSlotCategories);
+    done('equipSlotCategories');
   });
 }
 
@@ -1792,9 +1913,14 @@ if (hasTodo('tribes')) {
       delete entry.NameFemale_ja;
       delete entry.Patch;
       delete entry.Url;
+      const VIT = entry.DEX;
+      const DEX = entry.VIT;
+      entry.VIT = VIT;
+      entry.DEX = DEX;
       tribes[entry.ID] = entry;
     });
     persistToJsonAsset('tribes', tribes);
+    done('tribes');
   });
 }
 
@@ -1811,16 +1937,20 @@ if (hasTodo('races')) {
     });
   }, null, () => {
     persistToJsonAsset('races', races);
+    done('races');
   });
 }
 
 if (hasTodo('foods')) {
   const foods = [];
-  getAllPages('https://xivapi.com/Search?indexes=items&filters=ItemAction.Type=844&columns=ID,Bonuses,LevelItem,LevelEquip').subscribe(page => {
+  getAllPages('https://xivapi.com/Search?indexes=items&filters=ItemSearchCategory.ID=45&columns=ID,Bonuses,LevelItem,LevelEquip').subscribe(page => {
     page.Results.forEach(entry => {
-      foods.push(entry);
+      if (entry.Bonuses) {
+        foods.push(entry);
+      }
     });
   }, null, () => {
     persistToJsonAsset('foods', foods);
+    done('foods');
   });
 }

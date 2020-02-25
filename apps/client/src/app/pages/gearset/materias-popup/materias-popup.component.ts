@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { EquipmentPiece } from '../../../model/gearset/equipment-piece';
 import { LazyDataService } from '../../../core/data/lazy-data.service';
 import { MateriaService } from '../../../modules/gearsets/materia.service';
 import { NzModalRef } from 'ng-zorro-antd';
 import { StatsService } from '../../../modules/gearsets/stats.service';
+import { sum } from 'lodash';
+import { Memoized } from '../../../core/decorators/memoized';
 
 
 interface MateriaMenuEntry {
@@ -14,7 +16,8 @@ interface MateriaMenuEntry {
 @Component({
   selector: 'app-materias-popup',
   templateUrl: './materias-popup.component.html',
-  styleUrls: ['./materias-popup.component.less']
+  styleUrls: ['./materias-popup.component.less'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class MateriasPopupComponent implements OnInit {
 
@@ -23,6 +26,8 @@ export class MateriasPopupComponent implements OnInit {
   job: number;
 
   materiaMenu: MateriaMenuEntry[] = [];
+
+  mobileEdit: number;
 
   constructor(private lazyData: LazyDataService, public materiasService: MateriaService,
               private modalRef: NzModalRef, private statsService: StatsService) {
@@ -38,7 +43,7 @@ export class MateriasPopupComponent implements OnInit {
 
   resetMaterias(index: number): void {
     for (let i = index; i < this.equipmentPiece.materias.length; i++) {
-      this.equipmentPiece.materias[i] = 0;
+      this.setMateria(i, 0);
     }
   }
 
@@ -46,32 +51,71 @@ export class MateriasPopupComponent implements OnInit {
     this.modalRef.close(this.equipmentPiece);
   }
 
+  optimize(): void {
+    this.equipmentPiece.materias = this.combinations(this.equipmentPiece.materias).sort((a, b) => {
+      return sum(b.map((m, i) => {
+        return this.getMateriaScore(m, i);
+      })) - sum(a.map((m, i) => {
+        return this.getMateriaScore(m, i);
+      }));
+    })[0];
+  }
+
+  @Memoized()
+  private getMateriaScore(materiaId: number, index: number): number {
+    const meldingChances = this.getMeldingChances(materiaId, index);
+    if (meldingChances === 0) {
+      // If a materia has 0% chances of melding, nuke it.
+      return -1000;
+    }
+    const materia = this.materiasService.getMateria(materiaId);
+    switch (materia.tier) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return meldingChances;
+      case 5:
+      case 7:
+        return meldingChances * 10;
+      case 6:
+      case 8:
+        return meldingChances * 30;
+    }
+  }
+
+  combinations(a: number[]) {
+    if (a.length < 2) return [a];
+    let c, d;
+    const b = [];
+    for (c = 0; c < a.length; c++) {
+      const e = a.splice(c, 1),
+        f = this.combinations(a);
+      for (d = 0; d < f.length; d++) b.push([e[0]].concat(f[d]));
+      a.splice(c, 0, e[0]);
+    }
+    return b;
+  }
+
+  setMateria(index: number, materia: number): void {
+    if (materia > 0 && this.getMeldingChances(materia, index) === 0) {
+      return;
+    }
+    this.equipmentPiece = {
+      ...this.equipmentPiece,
+      materias: [
+        ...this.equipmentPiece.materias.map((m, i) => {
+          if (i === index) {
+            return materia;
+          }
+          return m;
+        })
+      ]
+    };
+  }
+
   cancel(): void {
     this.modalRef.close(null);
-  }
-
-  getMaxValuesTable(): number[][] {
-    return this.statsService.getRelevantBaseStats(this.job)
-      .map(baseParamId => {
-        return [
-          baseParamId,
-          this.materiasService.getTotalStat(this.getStartingValue(this.equipmentPiece, baseParamId), this.equipmentPiece, baseParamId),
-          this.materiasService.getItemCapForStat(this.equipmentPiece.itemId, baseParamId)
-        ];
-      });
-  }
-
-  private getStartingValue(equipmentPiece: EquipmentPiece, baseParamId: number): number {
-    const itemStats = this.lazyData.data.itemStats[equipmentPiece.itemId];
-    const matchingStat: any = itemStats.find((stat: any) => stat.ID === baseParamId);
-    if (matchingStat) {
-      if (equipmentPiece.hq) {
-        return matchingStat.HQ;
-      } else {
-        return matchingStat.NQ;
-      }
-    }
-    return 0;
   }
 
   ngOnInit(): void {

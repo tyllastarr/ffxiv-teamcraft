@@ -26,7 +26,7 @@ function filterPacketSessionID(packet) {
     'eventFinish',
     'eventPlay4',
     'eventPlay8',
-    'someDirectorUnk4',
+    'someDirectorUnk4'
   ];
   return packetsFromOthers.indexOf(packet.type) === -1
     || packet.sourceActorSessionID === packet.targetActorSessionID;
@@ -36,26 +36,21 @@ module.exports.start = function(win, config, verbose, winpcap) {
   isElevated().then(elevated => {
     log.info('elevated', elevated);
     if (elevated) {
-      let line = 0;
-
-      exec('netsh advfirewall firewall show rule name="FFXIVTeamcraft"', (err, stdout) => {
-        if ((stdout.match(/FFXIVTeamcraft/g) || []).length > 1) {
-          exec('netsh advfirewall firewall delete rule name="FFXIVTeamcraft"');
-          exec(`netsh advfirewall firewall add rule name="FFXIVTeamcraft" dir=in action=allow program="${machinaExePath}" enable=yes`);
-        }
-        if (stdout.indexOf('FFXIVTeamcraft') === -1) {
-          exec(`netsh advfirewall firewall add rule name="FFXIVTeamcraft" dir=in action=allow program="${machinaExePath}" enable=yes`);
-        }
+      exec('netsh advfirewall firewall delete rule name="FFXIVTeamcraft"', () => {
+        exec(`netsh advfirewall firewall add rule name="FFXIVTeamcraft" dir=in action=allow program="${machinaExePath}" enable=yes`);
       });
 
+      const region = config.get('region', null);
       const options = isDev ?
         {
           monitorType: winpcap ? 'WinPCap' : 'RawSocket',
-          parseAlgorithm: 'PacketSpecific'
+          parseAlgorithm: 'PacketSpecific',
+          region: region
         } : {
           parseAlgorithm: 'PacketSpecific',
           noData: true,
           monitorType: winpcap ? 'WinPCap' : 'RawSocket',
+          region: region,
           machinaExePath: machinaExePath,
           remoteDataPath: path.join(app.getAppPath(), '../../resources/remote-data'),
           definitionsDir: path.join(app.getAppPath(), '../../resources/app.asar.unpacked/node_modules/node-machina-ffxiv/models/default')
@@ -91,7 +86,8 @@ module.exports.start = function(win, config, verbose, winpcap) {
         'someDirectorUnk4',
         'updatePositionHandler',
         'actorControlSelf',
-        'useMooch'
+        'useMooch',
+        'retainerInformation'
       ];
 
       Machina = new MachinaFFXIV(options);

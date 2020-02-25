@@ -10911,7 +10911,7 @@
     "id": 700,
     "itemId": 27411,
     "level": 345,
-    "icon": "/i/029000/029980.png",
+    "icon": "/i/028000/028455.png",
     "mapId": 497,
     "zoneId": 2951,
     "timed": 0,
@@ -12519,7 +12519,7 @@
     "id": 809,
     "itemId": 28065,
     "level": 440,
-    "icon": "/i/029000/029995.png",
+    "icon": "/i/028000/028470.png",
     "mapId": 497,
     "zoneId": 2951,
     "timed": 1,
@@ -12551,7 +12551,7 @@
     "id": 811,
     "itemId": 28067,
     "level": 440,
-    "icon": "/i/029000/029996.png",
+    "icon": "/i/028000/028471.png",
     "mapId": 491,
     "zoneId": 2953,
     "timed": 0,
@@ -12567,7 +12567,7 @@
     "id": 812,
     "itemId": 28068,
     "level": 440,
-    "icon": "/i/029000/029997.png",
+    "icon": "/i/028000/028472.png",
     "mapId": 492,
     "zoneId": 2954,
     "timed": 0,
@@ -12599,7 +12599,7 @@
     "id": 814,
     "itemId": 28070,
     "level": 440,
-    "icon": "/i/029000/029998.png",
+    "icon": "/i/028000/028473.png",
     "mapId": 494,
     "zoneId": 2956,
     "timed": 1,
@@ -12615,7 +12615,7 @@
     "id": 815,
     "itemId": 28071,
     "level": 440,
-    "icon": "/i/029000/029999.png",
+    "icon": "/i/028000/028474.png",
     "mapId": 495,
     "zoneId": 2957,
     "timed": 1,
@@ -12725,6 +12725,1382 @@
     "mapId": 496,
     "zoneId": 2958,
     "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28925": {
+    "id": 822,
+    "itemId": 28925,
+    "level": 460,
+    "icon": "/i/028000/028475.png",
+    "mapId": 491,
+    "zoneId": 2953,
+    "timed": 1,
+    "weathered": 1,
+    "recordType": {
+      "en": "Lakes",
+      "de": "Seen",
+      "ja": "湖沼",
+      "fr": "Lacs et marais"
+    }
+  },
+  "28926": {
+    "id": 823,
+    "itemId": 28926,
+    "level": 460,
+    "icon": "/i/028000/028476.png",
+    "mapId": 492,
+    "zoneId": 2954,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Rivers",
+      "de": "Flüsse",
+      "ja": "河川",
+      "fr": "Rivières"
+    }
+  },
+  "28927": {
+    "id": 824,
+    "itemId": 28927,
+    "level": 460,
+    "icon": "/i/029000/029621.png",
+    "mapId": 493,
+    "zoneId": 2955,
+    "timed": 1,
+    "weathered": 1,
+    "recordType": {
+      "en": "Sands",
+      "de": "Dünen",
+      "ja": "砂海",
+      "fr": "Oasis"
+    }
+  },
+  "28928": {
+    "id": 825,
+    "itemId": 28928,
+    "level": 460,
+    "icon": "/i/028000/028477.png",
+    "mapId": 494,
+    "zoneId": 2956,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Rivers",
+      "de": "Flüsse",
+      "ja": "河川",
+      "fr": "Rivières"
+    }
+  },
+  "28929": {
+    "id": 826,
+    "itemId": 28929,
+    "level": 460,
+    "icon": "/i/028000/028478.png",
+    "mapId": 495,
+    "zoneId": 2957,
+    "timed": 1,
+    "weathered": 1,
+    "recordType": {
+      "en": "Rivers",
+      "de": "Flüsse",
+      "ja": "河川",
+      "fr": "Rivières"
+    }
+  },
+  "28930": {
+    "id": 827,
+    "itemId": 28930,
+    "level": 460,
+    "icon": "/i/029000/029197.png",
+    "mapId": 496,
+    "zoneId": 2958,
+    "timed": 1,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28937": {
+    "id": 828,
+    "itemId": 28937,
+    "level": 1,
+    "icon": "/i/029000/029003.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28938": {
+    "id": 829,
+    "itemId": 28938,
+    "level": 1,
+    "icon": "/i/029000/029034.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28939": {
+    "id": 842,
+    "itemId": 28939,
+    "level": 1,
+    "icon": "/i/029000/029009.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28940": {
+    "id": 844,
+    "itemId": 28940,
+    "level": 1,
+    "icon": "/i/029000/029152.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28941": {
+    "id": 833,
+    "itemId": 28941,
+    "level": 1,
+    "icon": "/i/029000/029016.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "28942": {
+    "id": 841,
+    "itemId": 28942,
+    "level": 1,
+    "icon": "/i/029000/029011.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29718": {
+    "id": 849,
+    "itemId": 29718,
+    "level": 1,
+    "icon": "/i/029000/029042.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29719": {
+    "id": 840,
+    "itemId": 29719,
+    "level": 1,
+    "icon": "/i/029000/029043.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29720": {
+    "id": 858,
+    "itemId": 29720,
+    "level": 1,
+    "icon": "/i/029000/029013.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29721": {
+    "id": 853,
+    "itemId": 29721,
+    "level": 1,
+    "icon": "/i/029000/029033.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29722": {
+    "id": 831,
+    "itemId": 29722,
+    "level": 1,
+    "icon": "/i/029000/029035.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29723": {
+    "id": 832,
+    "itemId": 29723,
+    "level": 1,
+    "icon": "/i/029000/029126.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29724": {
+    "id": 843,
+    "itemId": 29724,
+    "level": 1,
+    "icon": "/i/029000/029046.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29725": {
+    "id": 845,
+    "itemId": 29725,
+    "level": 1,
+    "icon": "/i/029000/029021.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29726": {
+    "id": 854,
+    "itemId": 29726,
+    "level": 1,
+    "icon": "/i/029000/029167.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29727": {
+    "id": 855,
+    "itemId": 29727,
+    "level": 1,
+    "icon": "/i/029000/029022.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29728": {
+    "id": 834,
+    "itemId": 29728,
+    "level": 1,
+    "icon": "/i/029000/029025.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29729": {
+    "id": 835,
+    "itemId": 29729,
+    "level": 1,
+    "icon": "/i/029000/029004.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29730": {
+    "id": 836,
+    "itemId": 29730,
+    "level": 1,
+    "icon": "/i/029000/029048.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29731": {
+    "id": 846,
+    "itemId": 29731,
+    "level": 1,
+    "icon": "/i/029000/029049.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29732": {
+    "id": 857,
+    "itemId": 29732,
+    "level": 1,
+    "icon": "/i/029000/029516.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29733": {
+    "id": 848,
+    "itemId": 29733,
+    "level": 1,
+    "icon": "/i/029000/029045.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29734": {
+    "id": 852,
+    "itemId": 29734,
+    "level": 1,
+    "icon": "/i/029000/029051.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29735": {
+    "id": 847,
+    "itemId": 29735,
+    "level": 1,
+    "icon": "/i/029000/029026.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29736": {
+    "id": 837,
+    "itemId": 29736,
+    "level": 1,
+    "icon": "/i/029000/029310.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29737": {
+    "id": 838,
+    "itemId": 29737,
+    "level": 1,
+    "icon": "/i/029000/029027.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29738": {
+    "id": 839,
+    "itemId": 29738,
+    "level": 1,
+    "icon": "/i/029000/029100.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29739": {
+    "id": 830,
+    "itemId": 29739,
+    "level": 1,
+    "icon": "/i/029000/029755.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29740": {
+    "id": 850,
+    "itemId": 29740,
+    "level": 1,
+    "icon": "/i/029000/029053.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29741": {
+    "id": 851,
+    "itemId": 29741,
+    "level": 1,
+    "icon": "/i/029000/029111.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29742": {
+    "id": 856,
+    "itemId": 29742,
+    "level": 1,
+    "icon": "/i/029000/029811.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29743": {
+    "id": 859,
+    "itemId": 29743,
+    "level": 1,
+    "icon": "/i/029000/029019.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29744": {
+    "id": 860,
+    "itemId": 29744,
+    "level": 1,
+    "icon": "/i/029000/029373.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29745": {
+    "id": 861,
+    "itemId": 29745,
+    "level": 1,
+    "icon": "/i/029000/029147.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29746": {
+    "id": 862,
+    "itemId": 29746,
+    "level": 1,
+    "icon": "/i/029000/029077.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29747": {
+    "id": 863,
+    "itemId": 29747,
+    "level": 1,
+    "icon": "/i/029000/029157.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29748": {
+    "id": 891,
+    "itemId": 29748,
+    "level": 1,
+    "icon": "/i/029000/029082.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29749": {
+    "id": 865,
+    "itemId": 29749,
+    "level": 1,
+    "icon": "/i/029000/029069.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29750": {
+    "id": 866,
+    "itemId": 29750,
+    "level": 1,
+    "icon": "/i/029000/029065.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29751": {
+    "id": 867,
+    "itemId": 29751,
+    "level": 1,
+    "icon": "/i/029000/029759.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29752": {
+    "id": 868,
+    "itemId": 29752,
+    "level": 1,
+    "icon": "/i/029000/029073.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29753": {
+    "id": 869,
+    "itemId": 29753,
+    "level": 1,
+    "icon": "/i/029000/029067.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29754": {
+    "id": 870,
+    "itemId": 29754,
+    "level": 1,
+    "icon": "/i/029000/029070.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29755": {
+    "id": 871,
+    "itemId": 29755,
+    "level": 1,
+    "icon": "/i/029000/029078.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29756": {
+    "id": 872,
+    "itemId": 29756,
+    "level": 1,
+    "icon": "/i/028000/028001.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29757": {
+    "id": 873,
+    "itemId": 29757,
+    "level": 1,
+    "icon": "/i/029000/029434.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29758": {
+    "id": 874,
+    "itemId": 29758,
+    "level": 1,
+    "icon": "/i/029000/029095.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29759": {
+    "id": 875,
+    "itemId": 29759,
+    "level": 1,
+    "icon": "/i/029000/029084.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29760": {
+    "id": 878,
+    "itemId": 29760,
+    "level": 1,
+    "icon": "/i/029000/029161.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29761": {
+    "id": 877,
+    "itemId": 29761,
+    "level": 1,
+    "icon": "/i/029000/029089.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29762": {
+    "id": 896,
+    "itemId": 29762,
+    "level": 1,
+    "icon": "/i/029000/029661.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29763": {
+    "id": 879,
+    "itemId": 29763,
+    "level": 1,
+    "icon": "/i/029000/029074.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29764": {
+    "id": 880,
+    "itemId": 29764,
+    "level": 1,
+    "icon": "/i/029000/029155.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29765": {
+    "id": 881,
+    "itemId": 29765,
+    "level": 1,
+    "icon": "/i/028000/028002.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29766": {
+    "id": 864,
+    "itemId": 29766,
+    "level": 1,
+    "icon": "/i/029000/029072.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29767": {
+    "id": 883,
+    "itemId": 29767,
+    "level": 1,
+    "icon": "/i/029000/029085.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29768": {
+    "id": 884,
+    "itemId": 29768,
+    "level": 1,
+    "icon": "/i/029000/029156.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29769": {
+    "id": 885,
+    "itemId": 29769,
+    "level": 1,
+    "icon": "/i/029000/029088.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29770": {
+    "id": 886,
+    "itemId": 29770,
+    "level": 1,
+    "icon": "/i/029000/029092.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29771": {
+    "id": 887,
+    "itemId": 29771,
+    "level": 1,
+    "icon": "/i/029000/029813.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29772": {
+    "id": 888,
+    "itemId": 29772,
+    "level": 1,
+    "icon": "/i/029000/029546.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29773": {
+    "id": 895,
+    "itemId": 29773,
+    "level": 1,
+    "icon": "/i/029000/029374.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29774": {
+    "id": 890,
+    "itemId": 29774,
+    "level": 1,
+    "icon": "/i/028000/028003.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29775": {
+    "id": 882,
+    "itemId": 29775,
+    "level": 1,
+    "icon": "/i/029000/029816.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29776": {
+    "id": 892,
+    "itemId": 29776,
+    "level": 1,
+    "icon": "/i/029000/029093.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29777": {
+    "id": 893,
+    "itemId": 29777,
+    "level": 1,
+    "icon": "/i/029000/029075.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29778": {
+    "id": 894,
+    "itemId": 29778,
+    "level": 1,
+    "icon": "/i/029000/029066.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29779": {
+    "id": 876,
+    "itemId": 29779,
+    "level": 1,
+    "icon": "/i/029000/029086.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29780": {
+    "id": 889,
+    "itemId": 29780,
+    "level": 1,
+    "icon": "/i/029000/029331.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29781": {
+    "id": 897,
+    "itemId": 29781,
+    "level": 1,
+    "icon": "/i/029000/029162.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29782": {
+    "id": 898,
+    "itemId": 29782,
+    "level": 1,
+    "icon": "/i/029000/029731.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29783": {
+    "id": 899,
+    "itemId": 29783,
+    "level": 1,
+    "icon": "/i/028000/028004.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29784": {
+    "id": 900,
+    "itemId": 29784,
+    "level": 1,
+    "icon": "/i/028000/028005.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29785": {
+    "id": 901,
+    "itemId": 29785,
+    "level": 1,
+    "icon": "/i/028000/028006.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29786": {
+    "id": 902,
+    "itemId": 29786,
+    "level": 1,
+    "icon": "/i/028000/028007.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29787": {
+    "id": 903,
+    "itemId": 29787,
+    "level": 1,
+    "icon": "/i/028000/028008.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 0,
+    "weathered": 1,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29788": {
+    "id": 904,
+    "itemId": 29788,
+    "level": 445,
+    "icon": "/i/028000/028009.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29789": {
+    "id": 905,
+    "itemId": 29789,
+    "level": 445,
+    "icon": "/i/028000/028010.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29790": {
+    "id": 906,
+    "itemId": 29790,
+    "level": 445,
+    "icon": "/i/028000/028011.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
+    "weathered": 0,
+    "recordType": {
+      "en": "Deep Sea",
+      "de": "Hochsee",
+      "ja": "沖合",
+      "fr": "Pleine mer"
+    }
+  },
+  "29791": {
+    "id": 907,
+    "itemId": 29791,
+    "level": 445,
+    "icon": "/i/028000/028012.png",
+    "mapId": 604,
+    "zoneId": 3477,
+    "timed": 1,
     "weathered": 0,
     "recordType": {
       "en": "Deep Sea",

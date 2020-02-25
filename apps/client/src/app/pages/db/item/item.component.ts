@@ -36,6 +36,8 @@ import { hwdSupplies } from '../../../core/data/sources/hwd-supplies';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { DataType } from '../../../modules/list/data/data-type';
+import { CraftedBy } from '../../../modules/list/model/crafted-by';
+import { Memoized } from '../../../core/decorators/memoized';
 
 @Component({
   selector: 'app-item',
@@ -84,17 +86,19 @@ export class ItemComponent extends TeamcraftPageComponent {
 
     this.route.paramMap.subscribe(params => {
       const slug = params.get('slug');
+      const correctSlug = this.i18n.getName(this.l12n.getItem(+params.get('itemId'))).split(' ').join('-');
+
       if (slug === null) {
         this.router.navigate(
-          [this.i18n.getName(this.l12n.getItem(+params.get('itemId'))).split(' ').join('-')],
+          [correctSlug],
           {
             relativeTo: this.route,
             replaceUrl: true
           }
         );
-      } else if (slug !== this.i18n.getName(this.l12n.getItem(+params.get('itemId'))).split(' ').join('-')) {
+      } else if (slug !== correctSlug) {
         this.router.navigate(
-          ['../', this.i18n.getName(this.l12n.getItem(+params.get('itemId'))).split(' ').join('-')],
+          ['../', correctSlug],
           {
             relativeTo: this.route,
             replaceUrl: true
@@ -134,7 +138,7 @@ export class ItemComponent extends TeamcraftPageComponent {
         if (item.ClassJobUseTargetID) {
           mainAttributes.push({
             name: 'DB.Class_job',
-            value: item.ClassJobCategory[`Name_${this.translate.currentLang}`] || item.ClassJobCategory.Name_en
+            value: this.i18n.getName(this.l12n.xivapiToI18n(item.ClassJobCategory, 'jobCategories'))
           });
         }
         mainAttributes.push({
@@ -196,7 +200,7 @@ export class ItemComponent extends TeamcraftPageComponent {
           .map(key => {
             const statIndex = key.match(/(\d+)/)[0];
             const res: any = {
-              name: item[key],
+              name: this.l12n.xivapiToI18n(item[key], 'baseParams'),
               value: item[`BaseParamValue${statIndex}`],
               requiresPipe: true
             };
@@ -224,7 +228,7 @@ export class ItemComponent extends TeamcraftPageComponent {
             const max = food[`Max${i}`];
             const maxHq = food[`MaxHQ${i}`];
             if (value > 0) {
-              statsEntry.name = food[`BaseParam${i}`];
+              statsEntry.name = this.l12n.xivapiToI18n(food[`BaseParam${i}`], 'baseParams');
               statsEntry.requiresPipe = true;
               if (isRelative) {
                 statsEntry.value = `${value}% (${max})`;
@@ -586,7 +590,7 @@ export class ItemComponent extends TeamcraftPageComponent {
               .map(itemId => {
                 return {
                   itemId: +itemId,
-                  recipes: [this.lazyData.data.recipes.find(r => r.result === +itemId)]
+                  recipes: [this.lazyData.getRecipe(itemId)]
                 };
               })
           });
@@ -596,12 +600,24 @@ export class ItemComponent extends TeamcraftPageComponent {
     );
   }
 
+  @Memoized()
+  public getRecipe(recipeId: string, fallbackData: ItemData): Observable<any> {
+    return this.lazyData.getRecipe(recipeId).pipe(
+      map(recipe => {
+        if (!recipe) {
+          return fallbackData.getCraft(recipeId);
+        }
+        return recipe;
+      })
+    );
+  }
+
   public openInSimulator(item: ListRow, itemId: number, recipeId: string): void {
-    const entry = getItemSource(item,  DataType.CRAFTED_BY).find(c => c.recipeId === recipeId);
+    const entry = getItemSource<CraftedBy[]>(item, DataType.CRAFTED_BY).find(c => c.id === recipeId);
     const craft: Partial<Craft> = {
       id: recipeId,
-      job: entry.jobId,
-      lvl: entry.level,
+      job: entry.job,
+      lvl: entry.lvl,
       stars: entry.stars_tooltip.length,
       rlvl: entry.rlvl,
       durability: entry.durability,
@@ -645,12 +661,12 @@ export class ItemComponent extends TeamcraftPageComponent {
 
   private getDescription(item: any): string {
     // We might want to add more details for some specific items, which is why this is a method.
-    return item[`Description_${this.translate.currentLang}`] || item.Description_en;
+    return this.i18n.getName(this.l12n.xivapiToI18n(item, 'itemDescriptions', 'Description'));
   }
 
   private getName(item: any): string {
     // We might want to add more details for some specific items, which is why this is a method.
-    return item[`Name_${this.translate.currentLang}`] || item.Name_en;
+    return this.i18n.getName(this.l12n.xivapiToI18n(item, 'items'));
   }
 
   protected getSeoMeta(): Observable<Partial<SeoMetaConfig>> {

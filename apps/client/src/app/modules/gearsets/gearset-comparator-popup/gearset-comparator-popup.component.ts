@@ -4,7 +4,7 @@ import { AriyalaLinkParser } from '../../../pages/lists/list-import-popup/link-p
 import { Observable } from 'rxjs';
 import { GearsetsFacade } from '../+state/gearsets.facade';
 import { GearsetsComparison } from '../../../model/gearset/gearsets-comparison';
-import { first, map } from 'rxjs/operators';
+import { filter, first, map } from 'rxjs/operators';
 import { GearsetComparatorService } from '../gearset-comparator.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -39,6 +39,8 @@ export class GearsetComparatorPopupComponent {
 
   result: GearsetsComparison;
 
+  includeAllTools: boolean;
+
   constructor(private gearsetsFacade: GearsetsFacade, private comparator: GearsetComparatorService,
               private translate: TranslateService) {
     this.gearsetsFacade.loadAll();
@@ -70,7 +72,7 @@ export class GearsetComparatorPopupComponent {
               this.error = true;
             } else {
               try {
-                this.result = this.comparator.compare(this.gearset, gearsetFromAriyala);
+                this.result = this.comparator.compare(this.gearset, gearsetFromAriyala, this.includeAllTools);
               } catch (e) {
                 this.error = true;
                 this.loading = false;
@@ -80,7 +82,7 @@ export class GearsetComparatorPopupComponent {
           });
           break;
         case 'Personal_gearset':
-          this.result = this.comparator.compare(this.gearset, this.personalGearset);
+          this.result = this.comparator.compare(this.gearset, this.personalGearset, this.includeAllTools);
           this.loading = false;
           break;
         case 'External_gearset':
@@ -90,12 +92,13 @@ export class GearsetComparatorPopupComponent {
           this.gearsetsFacade.allGearsets$.pipe(
             map(gearsets => {
               return gearsets.find(g => g.$key === key);
-            })
+            }),
+            filter(gearset => gearset !== undefined)
           ).subscribe(gearset => {
             if (gearset.notFound) {
               this.error = true;
             } else {
-              this.result = this.comparator.compare(this.gearset, gearset);
+              this.result = this.comparator.compare(this.gearset, gearset, this.includeAllTools);
             }
             this.loading = false;
           });

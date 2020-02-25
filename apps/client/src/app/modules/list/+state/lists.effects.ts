@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
+  ArchivedListsLoaded,
   ConvertLists,
   CreateList,
   DeleteList,
@@ -10,6 +11,7 @@ import {
   LoadListDetails,
   LoadTeamLists,
   MyListsLoaded,
+  PureUpdateList,
   SetItemDone,
   SharedListsLoaded,
   TeamListsLoaded,
@@ -18,7 +20,20 @@ import {
   UpdateListAtomic,
   UpdateListIndex
 } from './lists.actions';
-import { catchError, debounceTime, delay, distinctUntilChanged, filter, first, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  delay,
+  distinctUntilChanged,
+  exhaustMap,
+  filter,
+  first,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { AuthFacade } from '../../../+state/auth.facade';
 import { TeamcraftUser } from '../../../model/user/teamcraft-user';
 import { combineLatest, EMPTY, from, of } from 'rxjs';
@@ -51,13 +66,26 @@ export class ListsEffects {
     ofType(ListsActionTypes.LoadMyLists),
     switchMap(() => this.authFacade.userId$),
     distinctUntilChanged(),
-    switchMap((userId) => {
+    exhaustMap((userId) => {
       this.localStore = this.serializer.deserialize<List>(JSON.parse(localStorage.getItem('offline-lists') || '[]'), [List]);
       this.localStore.forEach(list => list.afterDeserialized());
       this.listsFacade.offlineListsLoaded(this.localStore);
-      return this.listService.getByForeignKey(TeamcraftUser, userId)
+      return this.listService.getByForeignKey(TeamcraftUser, userId, query => query.where('archived', '==', false))
         .pipe(
           map(lists => new MyListsLoaded(lists, userId))
+        );
+    })
+  );
+
+  @Effect()
+  loadArchivedLists$ = this.actions$.pipe(
+    ofType(ListsActionTypes.LoadArchivedLists),
+    switchMap(() => this.authFacade.userId$),
+    distinctUntilChanged(),
+    exhaustMap((userId) => {
+      return this.listService.getByForeignKey(TeamcraftUser, userId, query => query.where('archived', '==', true), ':archived')
+        .pipe(
+          map(lists => new ArchivedListsLoaded(lists, userId))
         );
     })
   );
@@ -187,6 +215,21 @@ export class ListsEffects {
     switchMap(() => EMPTY)
   );
 
+  @Effect()
+  pureListUpdate$ = this.actions$.pipe(
+    ofType<PureUpdateList>(ListsActionTypes.PureUpdateList),
+    mergeMap(action => {
+      const localList = this.localStore.find(l => l.$key === action.$key);
+      if (localList) {
+        Object.assign(localList, action.payload);
+        this.saveToLocalstorage(localList, false);
+        return EMPTY;
+      }
+      return this.listService.pureUpdate(action.$key, action.payload);
+    }),
+    switchMap(() => EMPTY)
+  );
+
   @Effect({ dispatch: false })
   createListInDatabase$ = this.actions$.pipe(
     ofType(ListsActionTypes.CreateList),
@@ -227,7 +270,7 @@ export class ListsEffects {
     ofType<UpdateListAtomic>(ListsActionTypes.UpdateListAtomic),
     debounceTime(2000),
     filter(action => {
-      return !action.payload.isComplete();
+      return !(action.payload.ephemeral && action.payload.isComplete());
     }),
     switchMap((action) => {
       if (action.payload.offline) {

@@ -96,6 +96,8 @@
   "No_favorites": "No Favorite",
   "Ephemeral_list": "Will be deleted once completed",
   "Ephemeral_tag": "Ephemeral",
+  "Archived_list": "Archived list (not loaded by default)",
+  "Archived_tag": "Archived",
   "Remove_ephemeral": "Upgrade to permanent list",
   "Quick_list_create": "Create quick list (deleted once completed)",
   "Tag_filter": "Tags",
@@ -344,6 +346,8 @@
     "Title": "Settings",
     "General": "General",
     "Link_base": "Item links",
+    "Region": "Region",
+    "Region_explain": "Data source and functions based on specific game version will be adjusted per region. Some of them may not be available in certain region.",
     "Theme": "Theme",
     "no_panel_borders": "Disable borders around various panels",
     "Desktop": "Desktop",
@@ -416,6 +420,11 @@
       "Theme": "Theme",
       "Search": "Search",
       "Other": "Other"
+    },
+    "REGIONS": {
+      "Global": "Global",
+      "CN": "China",
+      "KR": "Korea"
     }
   },
   "PROFILE": {
@@ -483,6 +492,8 @@
     }
   },
   "LIST": {
+    "Archive": "Archive",
+    "Unarchive": "Unarchive",
     "Regenerate": "Update list to latest Teamcraft version",
     "Rename": "Rename list",
     "Copied_x_times": "Copied {{count}} times",
@@ -532,6 +543,7 @@
       "Delete": "Delete the list",
       "Clear": "Empty the list",
       "Reset": "Reset the list",
+      "Archive": "Archive the list",
       "Nothing": "Nothing"
     },
     "BUTTONS": {
@@ -963,7 +975,8 @@
       "NOT_ENOUGH_CP": "Not enough CP",
       "MISSING_LEVEL_REQUIREMENT": "You don't have required level",
       "NOT_SPECIALIST": "Specialist rotation but you're not specialist",
-      "NO_INNER_QUIET": "Tried to use Inner Quiet action without Inner Quiet buff enabled"
+      "NO_INNER_QUIET": "Tried to use Inner Quiet action without Inner Quiet buff enabled",
+      "MISSING_STATS_REQUIREMENT": "You don't have the minimum stats needed for this craft"
     },
     "ROTATION_TIPS": {
       "Use_inner_quiet": "Almost all the rotations should include Inner Quiet if your goal is to HQ the item. It provides a really good quality boost and enables actions like Byregot's Blessing.",
@@ -1664,7 +1677,14 @@
     "No_character_id": "No ingame character id set",
     "Please_relog": "In order to contribute to Universalis, we need you to log out and in (ingame), this is only needed once.",
     "Inventory_outdated": "Your inventory is outdated",
-    "Please_update_inventory_popup": "Please change zone (by either teleporting or entering a house) in order to update your inventory. This popup will close once it's done."
+    "Please_update_inventory_popup": "Please change zone (by either teleporting or entering a house) in order to update your inventory. This popup will close once it's done.",
+    "Outdated": "Packet capture isn't working",
+    "Outdated_description": "Your version of Teamcraft isn't working properly with the current game version, it's being worked on and will be fixed in a future update."
+  },
+  "SUGGESTED_REGION": {
+    "Banner_title": "Suggest changing region to {{region}}",
+    "Banner_description": "You can change the region to which you played in for better experience in database, simulator, packet capture, etc.",
+    "Button_label": "Change region"
   },
   "INVENTORY": {
     "Title": "Inventory",
@@ -1706,6 +1726,12 @@
       "Title": "Items that you have in very small stacks",
       "Message": "You only have {{amount}} of this item, is it worth keeping them?",
       "Threshold_amount": "Threshold value"
+    },
+    "CONSOLIDATE_STACKS": {
+      "Title": "HQ stacks of items that can have their quality lowered",
+      "Message": "Combine with NQ stack in: {{containers}}",
+      "Filter": "Only show materials up to: ",
+      "Placeholder": "Pick Expansion"
     }
   },
   "VERSION_LOCK": {
@@ -1720,7 +1746,7 @@
     "generate_list": "Generate a list",
     "Content": "Content",
     "Stat_name": "Stat",
-    "Current_value": "Current value",
+    "Current_value": "Current",
     "Cap_value": "Cap",
     "Add_materia": "Add materia",
     "No_materia": "No materia",
@@ -1754,6 +1780,15 @@
     "You_have_no_gearsets": "You have no gearsets",
     "Favorite_gearsets": "Favorite gearsets",
     "Update_from_pcap": "Update using packet capture",
+    "Copy_as_text": "Copy this gearset as text",
+    "Include_all_tools": "Include tools for the other jobs too",
+    "Use_in_simulator": "Use these stats in the simulator",
+    "Please_input_lodestone_id": "Please input lodestone id",
+    "Paste_lodestone_id": "Paste lodestone id",
+    "Currency": "Currency",
+    "Optimize_materias": "Optimize materias order",
+    "No_trades_needed": "No trades needed",
+    "Stats_caps": "Stats caps",
     "SLOT": {
       "Body": "Chest",
       "Ears": "Ears",

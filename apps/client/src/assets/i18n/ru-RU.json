@@ -96,6 +96,8 @@
   "No_favorites": "Нет избранного",
   "Ephemeral_list": "Будут удалены после завершения",
   "Ephemeral_tag": "Эфемерный",
+  "Archived_list": "Archived list (not loaded by default)",
+  "Archived_tag": "Archived",
   "Remove_ephemeral": "Преобразовать в постоянный список",
   "Quick_list_create": "Создать быстрый список (удаляется после завершения)",
   "Tag_filter": "Теги",
@@ -149,7 +151,11 @@
     "Unknown": "Неизвестно",
     "Minimum": "Минимум",
     "Maximum": "Максимум",
-    "Average": "В среднем"
+    "Average": "В среднем",
+    "Hq": "HQ",
+    "Nq": "NQ",
+    "Share_link_copied": "Ссылка скопирована в буфер обмена",
+    "Copy": "Копировать"
   },
   "ALARMS": {
     "Title": "Оповещения",
@@ -340,6 +346,8 @@
     "Title": "Настройки",
     "General": "Главное",
     "Link_base": "Ссылка на предмет",
+    "Region": "Region",
+    "Region_explain": "Data source and functions based on specific game version will be adjusted per region. Some of them may not be available in certain region.",
     "Theme": "Тема",
     "no_panel_borders": "Отключить рамки вокруг различных панелей",
     "Desktop": "Рабочий стол",
@@ -412,6 +420,11 @@
       "Theme": "Тема",
       "Search": "Поиск",
       "Other": "Прочее"
+    },
+    "REGIONS": {
+      "Global": "Global",
+      "CN": "China",
+      "KR": "Korea"
     }
   },
   "PROFILE": {
@@ -479,6 +492,8 @@
     }
   },
   "LIST": {
+    "Archive": "Archive",
+    "Unarchive": "Unarchive",
     "Regenerate": "Обновить список до последней версии Teamcraft",
     "Rename": "Переименовать список",
     "Copied_x_times": "Скопировано {{count}} раз",
@@ -528,6 +543,7 @@
       "Delete": "Удалить список",
       "Clear": "Очистить список",
       "Reset": "Обновить список",
+      "Archive": "Archive the list",
       "Nothing": "Ничего"
     },
     "BUTTONS": {
@@ -569,13 +585,15 @@
     "New_tag": "Новый тег",
     "Amount_ilvl": "Сумма (ilvl)",
     "Contributions_popup": "Статистика взносов",
-    "Autofill_details": "Input progression as you obtain items ingame, using packet capture. This is disabled if you leave the list page, to avoid unwanted inputs.",
+    "Autofill_details": "Добавлять прогресс по мере получения предметов в игре, используя захват пакетов. Это отключается когда вы покидаете страницу списка, чтобы избежать нежелательных записей.",
     "Autofill": "Автозаполнение",
     "Autofill_notification_details": "Показывать уведомление, когда предмет завершен автозаполнением.",
     "Autofill_notification": "Уведомление о завершении",
     "Autofill_notification_title": "Предмет завершен",
     "Autofill_notification_body": "{{itemName}} завершён для списка {{listName}}",
-    "Fill_with_inventory": "Fill with inventory (only accounts what you have in personal inventory)",
+    "Fill_with_inventory": "Заполнить из инвентаря (только предметами, которые есть у вас в личном инвентаре)",
+    "Filter_items_done": "Скрыть завершенные предметы",
+    "Inventory_synthesis": "Анализ запасов в инвентаре",
     "LAYOUT_DIALOG": {
       "Title": "Макет",
       "Add_panel": "Добавить панель",
@@ -773,6 +791,7 @@
   },
   "SIMULATOR": {
     "Title": "Симулятор крафта",
+    "Include_stats": "Включает статы",
     "Fixed_notification_number": "Фиксированное уведомление",
     "Starting_echo_number": "Уведомление #",
     "Break_on_reclaim": "Разделить макросы на этапе невозвратности Reclaim'а",
@@ -956,7 +975,8 @@
       "NOT_ENOUGH_CP": "Недостаточно CP",
       "MISSING_LEVEL_REQUIREMENT": "Ваш уровень слишком низок",
       "NOT_SPECIALIST": "Ротация специалиста, но вы не являетесь специалистом",
-      "NO_INNER_QUIET": "Попытка использования действия, связанного с Inner Quiet без включённого Inner Quiet"
+      "NO_INNER_QUIET": "Попытка использования действия, связанного с Inner Quiet без включённого Inner Quiet",
+      "MISSING_STATS_REQUIREMENT": "You don't have the minimum stats needed for this craft"
     },
     "ROTATION_TIPS": {
       "Use_inner_quiet": "Почти все ротации должны включать Inner Quiet, если целью будет HQ предмет. Это обеспечивает действительно хороший рост качества и позволяет действия, такие как Byregot's Blessing.",
@@ -973,7 +993,8 @@
       "Use_rapid_synthesis_earlier": "Не нужно использовать Rapid Synthesis в качестве завершающего действия. Если переместить его ближе к началу ротации, будет проще обработать его провал и получить выше надёжность ротации.",
       "Do_not_use_brand_without_name": "Не используйте Brand of the Elements без активного Name of the Elements.",
       "Avoid_using_good_actions": "Избегайте использования действий, которые требуют хорошего состояния в макросе, так как они не могут быть предсказаны",
-      "Requires_reuse_to_proc": "Your rotation requires Reuse to proc in order to work properly, make sure it can work without a reuse proc."
+      "Requires_reuse_to_proc": "Your rotation requires Reuse to proc in order to work properly, make sure it can work without a reuse proc.",
+      "Use_reuse": "Your rotation reaches 100% HQ and you have enough CP to use Reuse, consider adding it to get extra mats back."
     }
   },
   "PRICING": {
@@ -1118,7 +1139,8 @@
   "UPDATE": {
     "New_update_available": "Доступно новое обновление!",
     "New_update_available_desktop": "Доступно новое обновление !\nНажмите здесь, чтобы скачать и установить его.",
-    "Web_instructions": "Пожалуйста, перезагрузите страницу, чтобы увидеть последнюю версию."
+    "Web_instructions": "Пожалуйста, перезагрузите страницу, чтобы увидеть последнюю версию.",
+    "Downloading_update": "Идет загрузка обновления, по завершении вам будет предложено установить его"
   },
   "LOG_TRACKER": {
     "Title": "Трекер журнала",
@@ -1347,9 +1369,9 @@
     },
     "FISH": {
       "Hour": "Время",
-      "Etime": "Eorzean time",
-      "Misses_popup_title": "Misses for this spot",
-      "Show_misses": "Show misses",
+      "Etime": "Время Eorzean",
+      "Misses_popup_title": "Не хватает для этого места",
+      "Show_misses": "Показать пропущенные",
       "Baits": "Использованная наживка",
       "Hookset_and_tug": "Hooksets и tugs",
       "Weathers": "Погода",
@@ -1578,7 +1600,8 @@
     "Levequests": "Вы можете подготовить списки ливквестов и предварительно посмотреть количество опыта за них в разделе Ливквесты.",
     "Log_tracker": "Вы можете отслеживать прогресс вашего журнала (сбор, крафт, рыбалка) на странице трекера журнала.",
     "Desktop_app_overlay": "Вы можете включить оверлей для оповещений при использовании приложения на рабочем столе (ссылка внизу на боковой панели).",
-    "Start_desktop_before_game": "Не забудьте запустить приложение перед игрой, чтобы обеспечить максимальную целостность данных"
+    "Start_desktop_before_game": "Не забудьте запустить приложение перед игрой, чтобы обеспечить максимальную целостность данных",
+    "Middle_click_share_button": "В приложении, нажмите на среднюю кнопку \"Поделиться\" в верхней панели, чтобы открыть текущую страницу в браузере"
   },
   "RECIPE_FINDER": {
     "Title": "Поиск рецептов",
@@ -1654,7 +1677,14 @@
     "No_character_id": "Не указан игровой id персонажа",
     "Please_relog": "Для того чтобы внести свой вклад в Universalis, нам нужно выйти и войти (в игре) это необходимо только один раз.",
     "Inventory_outdated": "Ваш инвентарь устарел",
-    "Please_update_inventory_popup": "Пожалуйста, измените зону (или телепортом или войдите в дом) для обновления инвентаря. Это всплывающее окно будет закрыто после завершения."
+    "Please_update_inventory_popup": "Пожалуйста, измените зону (или телепортом или войдите в дом) для обновления инвентаря. Это всплывающее окно будет закрыто после завершения.",
+    "Outdated": "Packet capture isn't working",
+    "Outdated_description": "Your version of Teamcraft isn't working properly with the current game version, it's being worked on and will be fixed in a future update."
+  },
+  "SUGGESTED_REGION": {
+    "Banner_title": "Suggest changing region to {{region}}",
+    "Banner_description": "You can change the region to which you played in for better experience in database, simulator, packet capture, etc.",
+    "Button_label": "Change region"
   },
   "INVENTORY": {
     "Title": "Инвентарь",
@@ -1696,10 +1726,110 @@
       "Title": "Предметы, которые у вас есть в маленьком количестве",
       "Message": "У вас только {{amount}} этого предмета, стоит ли сохранить их?",
       "Threshold_amount": "Пороговое значение"
+    },
+    "CONSOLIDATE_STACKS": {
+      "Title": "HQ stacks of items that can have their quality lowered",
+      "Message": "Combine with NQ stack in: {{containers}}",
+      "Filter": "Only show materials up to: ",
+      "Placeholder": "Pick Expansion"
     }
   },
   "VERSION_LOCK": {
     "Outdated": "Вы используете устаревшую версию Teamcraft, которая больше не может работать правильно",
     "Refresh_or_download_latest": "Если вы пользуетесь сайтом, просто нажмите Ctrl + F5, чтобы обновиться. Если вы используете приложение для рабочего стола, скачайте последнюю версию здесь: "
+  },
+  "GEARSETS": {
+    "Title": "Снаряжение",
+    "Rename_gearset": "Переименовать набор",
+    "View_gearset": "Посмотреть набор",
+    "Edit_gearset": "Изменить набор",
+    "generate_list": "Создать список",
+    "Content": "Содержимое",
+    "Stat_name": "Статы",
+    "Current_value": "Current",
+    "Cap_value": "Макс.",
+    "Add_materia": "Добавить материю",
+    "No_materia": "Нет материи",
+    "Value": "Значение",
+    "Empty_slot": "Пустой слот",
+    "Filters": "Фильтры",
+    "Total_stats": "Всего статы",
+    "Total_materias_needed": "Всего материй",
+    "Materia": "Материя",
+    "Amount_needed": "Количество",
+    "Modal_editor": "Материи для {{itemName}}",
+    "Unavailable_slot": "Слот не доступен",
+    "Job_cannot_be_changed": "Не может быть изменено после создания",
+    "Pick_a_job": "Выберите профессию",
+    "New_gearset": "Новый набор снаряжения",
+    "Please_input_ariyala_link": "Введите ссылку с Аriyala",
+    "Link_not_supported": "Ссылка не поддерживается",
+    "Compare_gearset": "Сравнить набор с другим",
+    "Stats": "Статы",
+    "Materias": "Материи",
+    "Pieces": "Часть снаряжения",
+    "Import_from_ariyala": "Импорт из Ariyala",
+    "Import_from_lodestone": "Импорт с Lodestone",
+    "Import_using_pcap": "Импорт используя захват пакетов",
+    "Your_gearsets": "Ваши наборы снаряжения",
+    "Delete_gearset": "Удалить набор",
+    "Import_from_pcap_notice": "Переключитесь на необходимый набор соответствующей профессии, чтобы сделать импорт.",
+    "No_food_selected": "Еда не выбрана",
+    "Generate_list": "Создать список",
+    "Clone_gearset": "Копировать список на ваш аккаунт",
+    "You_have_no_gearsets": "У вас нет наборов",
+    "Favorite_gearsets": "Избранные наборы снаряжения",
+    "Update_from_pcap": "Обновить используя захват пакетов",
+    "Copy_as_text": "Копировать этот набор как текст",
+    "Include_all_tools": "Добавить орудия для других профессий тоже",
+    "Use_in_simulator": "Использовать эти статы в симуляторе",
+    "Please_input_lodestone_id": "Please input lodestone id",
+    "Paste_lodestone_id": "Paste lodestone id",
+    "Currency": "Currency",
+    "Optimize_materias": "Optimize materias order",
+    "No_trades_needed": "No trades needed",
+    "Stats_caps": "Stats caps",
+    "SLOT": {
+      "Body": "Броня",
+      "Ears": "Уши",
+      "Feet": "Сапоги",
+      "FingerL": "Левый палец",
+      "FingerR": "Правый палец",
+      "Gloves": "Перчатки",
+      "Head": "Голова",
+      "Legs": "Ноги",
+      "MainHand": "Основная рука",
+      "Neck": "Шея",
+      "OffHand": "Вторая рука",
+      "SoulCrystal": "Кристалл души",
+      "Waist": "Пояс",
+      "Wrists": "Запястье"
+    },
+    "COMPARISON": {
+      "Compare_popup_title": "Сравнить {{setName}} с...",
+      "Error_title": "Не удалось сравнить наборы",
+      "Error_description": "Пожалуйста убедитесь, что выбранный набор существует и он такого же типа как и текущий (такой же основной стат)",
+      "Type": "Тип набора",
+      "Ariyala": "Ariyala set",
+      "External_gearset": "Набор в Тимкрафте для кого-то другого",
+      "Personal_gearset": "Один из ваших наборов",
+      "Paste_link_step_title": "Ссылка на набор",
+      "Pick_your_gearset": "Выберите ваш набор",
+      "Submit": "Cравнить",
+      "Your_gearset": "Ваш набор",
+      "Other_gearset": "Другой набор",
+      "Diff": "Разница",
+      "Avg_melding_chances": "Средний шанс овермелда"
+    }
+  },
+  "FOLDERS": {
+    "New_folder": "Новая папка",
+    "Delete_folder": "Удалить папку",
+    "Rename_folder": "Переименовать папку",
+    "View_folder": "Открыть папку",
+    "Content": "Содержимое",
+    "Folder_not_found": "Папка не найдена",
+    "Your_folders": "Ваши папки",
+    "Favorite_folders": "Избранные папки"
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { GearsetsFacade } from '../../../modules/gearsets/+state/gearsets.facade';
 import { TeamcraftGearset } from '../../../model/gearset/teamcraft-gearset';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { AuthFacade } from '../../../+state/auth.facade';
 import { IpcService } from '../../../core/electron/ipc.service';
 import { FoldersFacade, TreeFolderDisplay } from '../../../modules/folders/+state/folders.facade';
@@ -53,21 +53,21 @@ export class GearsetsPageComponent extends TeamcraftComponent implements OnInit 
       })
     );
 
-    this.favoritesDisplay$ = this.userId$.pipe(
-      switchMap(userId => {
+    this.favoritesDisplay$ = combineLatest([this.authFacade.favorites$, this.userId$]).pipe(
+      switchMap(([favorites, userId]) => {
         return this.foldersFacade.getDisplay<TeamcraftGearset>(
           this.foldersFacade.getFavorites<TeamcraftGearset>(FolderContentType.GEARSET, 'gearsetFolders'),
           this.gearsetsFacade.allGearsets$,
           key => this.gearsetsFacade.load(key),
-          gearset => gearset.authorId !== userId
+          gearset => gearset.authorId !== userId && (favorites.gearsets || []).indexOf(gearset.$key) > -1
         );
       })
     );
     this.authFacade.favorites$.pipe(
       takeUntil(this.onDestroy$)
     ).subscribe(favorites => {
-      favorites.gearsetFolders.forEach(key => this.foldersFacade.load(key));
-      favorites.gearsets.forEach(key => this.gearsetsFacade.load(key));
+      (favorites.gearsetFolders || []).forEach(key => this.foldersFacade.load(key));
+      (favorites.gearsets || []).forEach(key => this.gearsetsFacade.load(key));
     });
   }
 
